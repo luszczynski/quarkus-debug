@@ -10,14 +10,7 @@ public class DebugService {
 
     private int counter = 0;
 
-    public void increment() {
-        this.counter++;
-    }
-
-    /**
-     * @return the counter
-     */
-    public int getCounter() {
-        return counter;
+    public int increment() {
+      return this.counter++;
     }
 }
