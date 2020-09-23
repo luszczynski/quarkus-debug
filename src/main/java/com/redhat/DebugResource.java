@@ -9,6 +9,7 @@ import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
 import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
+import javax.ws.rs.core.Response;
 import javax.ws.rs.core.UriInfo;
 
 import org.jboss.logging.Logger;
@@ -33,7 +34,10 @@ public class DebugResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Debug helloGet(@QueryParam("delay") Long delay) throws InterruptedException {
+    public Response helloGet(
+        @QueryParam("delay") Long delay,
+        @QueryParam("statusCode") Integer statusCode
+        ) throws InterruptedException {
         if(delay != null)
             Thread.sleep(delay);
 
@@ -49,12 +53,19 @@ public class DebugResource {
 
         LOG.info(debug.toString());
 
-        return debug;
+        if(statusCode != null)
+            return Response.status(statusCode).entity(debug).build();
+        else 
+            return Response.status(200).entity(debug).build();
     }
 
     @POST
     @Produces(MediaType.APPLICATION_JSON)
-    public Debug helloPost(@QueryParam("delay") Long delay, String body) throws InterruptedException {
+    public Response helloPost(
+        @QueryParam("delay") Long delay,
+        @QueryParam("statusCode") Integer statusCode,
+        String body
+    ) throws InterruptedException {
         if(delay != null)
             Thread.sleep(delay);
 
@@ -71,6 +82,9 @@ public class DebugResource {
 
         LOG.info(debug.toString());
 
-        return debug;
+        if(statusCode != null)
+            return Response.status(statusCode).entity(debug).build();
+        else 
+            return Response.status(200).entity(debug).build();
     }
 }
