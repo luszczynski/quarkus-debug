@@ -42,3 +42,23 @@ Set-Cookie: 0583d7385ac1fa0c0483f966682199e4=be6881f09275d76e9ef371c961254aab; p
 # Using curl
 curl http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug
 ```
+
+### Delay
+
+Injecting delay of 100ms
+
+```bash
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?delay=100
+```
+
+### Returned Status Code
+
+```bash
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?statusCode=201
+```
+
+### Delay and Status Code
+
+```bash
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?delay=100&statusCode=500
+```
