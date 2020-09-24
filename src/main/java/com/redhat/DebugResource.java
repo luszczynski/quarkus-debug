@@ -2,8 +2,11 @@ package com.redhat;
 
 
 import javax.inject.Inject;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.PATCH;
 import javax.ws.rs.POST;
+import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.Produces;
 import javax.ws.rs.QueryParam;
@@ -77,6 +80,91 @@ public class DebugResource {
         debug.cookieMap = request.cookieMap();
         debug.method = request.method();
         debug.body = body;
+        debug.uri = request.uri();
+        debug.count = debugService.increment();
+
+        LOG.info(debug.toString());
+
+        if(statusCode != null)
+            return Response.status(statusCode).entity(debug).build();
+        else 
+            return Response.status(200).entity(debug).build();
+    }
+
+    @PUT
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response helloPut(
+        @QueryParam("delay") Long delay,
+        @QueryParam("statusCode") Integer statusCode,
+        String body
+    ) throws InterruptedException {
+        if(delay != null)
+            Thread.sleep(delay);
+
+        debug.path = info.getPath();
+        debug.remoteAddress = request.remoteAddress().toString();
+        debug.headers = request.headers();
+        debug.pathParams = info.getPathParameters();
+        debug.queryParams = info.getQueryParameters();
+        debug.cookieMap = request.cookieMap();
+        debug.method = request.method();
+        debug.body = body;
+        debug.uri = request.uri();
+        debug.count = debugService.increment();
+
+        LOG.info(debug.toString());
+
+        if(statusCode != null)
+            return Response.status(statusCode).entity(debug).build();
+        else 
+            return Response.status(200).entity(debug).build();
+    }
+
+    @PATCH
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response helloPatch(
+        @QueryParam("delay") Long delay,
+        @QueryParam("statusCode") Integer statusCode,
+        String body
+    ) throws InterruptedException {
+        if(delay != null)
+            Thread.sleep(delay);
+
+        debug.path = info.getPath();
+        debug.remoteAddress = request.remoteAddress().toString();
+        debug.headers = request.headers();
+        debug.pathParams = info.getPathParameters();
+        debug.queryParams = info.getQueryParameters();
+        debug.cookieMap = request.cookieMap();
+        debug.method = request.method();
+        debug.body = body;
+        debug.uri = request.uri();
+        debug.count = debugService.increment();
+
+        LOG.info(debug.toString());
+
+        if(statusCode != null)
+            return Response.status(statusCode).entity(debug).build();
+        else 
+            return Response.status(200).entity(debug).build();
+    }
+
+    @DELETE
+    @Produces(MediaType.APPLICATION_JSON)
+    public Response helloDelete(
+        @QueryParam("delay") Long delay,
+        @QueryParam("statusCode") Integer statusCode
+        ) throws InterruptedException {
+        if(delay != null)
+            Thread.sleep(delay);
+
+        debug.path = info.getPath();
+        debug.remoteAddress = request.remoteAddress().toString();
+        debug.headers = request.headers();
+        debug.pathParams = info.getPathParameters();
+        debug.queryParams = info.getQueryParameters();
+        debug.cookieMap = request.cookieMap();
+        debug.method = request.method();
         debug.uri = request.uri();
         debug.count = debugService.increment();
 
