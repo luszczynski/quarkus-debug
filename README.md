@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This is a simple project to help anyone to debug http requests. When using a proxy or any kind of API Management solution, it may help you when you can not call external APIs (https://echo-api.3scale.net:443 or http://postman-echo.com/get for example) and want to check how your payload is reaching the backend.
+This is a simple project to help anyone debug http requests. When using a proxy or any kind of API Management solution, it may help you when you can not call external APIs (https://echo-api.3scale.net:443 or http://postman-echo.com/get for example) and want to check how your payload is reaching the backend.
 
 ## How to install
 
@@ -12,7 +12,7 @@ oc new-app registry.access.redhat.com/redhat-openjdk-18/openjdk18-openshift~http
 oc expose svc/debug --path=/debug -n debug
 ```
 
-## Testing
+## Running
 
 ```bash
 # Using httpie
@@ -42,6 +42,10 @@ Set-Cookie: 0583d7385ac1fa0c0483f966682199e4=be6881f09275d76e9ef371c961254aab; p
 # Using curl
 curl http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug
 ```
+
+Swagger UI
+
+http://debug-debug.apps.brasilia-69e5.open.redhat.com/q/swagger-ui
 
 ### Fixed Delay
 
