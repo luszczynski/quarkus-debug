@@ -79,3 +79,9 @@ http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?processLargeJso
 ```bash
 http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?delay=100&statusCode=500
 ```
+
+### Hang Indefinitely
+
+```bash
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?hangIndefinitely=true
+```
