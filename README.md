@@ -43,18 +43,35 @@ Set-Cookie: 0583d7385ac1fa0c0483f966682199e4=be6881f09275d76e9ef371c961254aab; p
 curl http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug
 ```
 
-### Delay
+### Fixed Delay
 
 Injecting delay of 100ms
 
 ```bash
-http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?delay=100
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?fixedDelay=100
+```
+
+### Random Delay
+
+Inject a random delay between `randomDelayBegin` and `randomDelayEnd`.
+The following example will choose randomly a number between 1000ms and 5000ms and apply the delay
+
+```bash
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?randomDelayBegin=1000&randomDelayEnd=5000
 ```
 
 ### Returned Status Code
 
+Choose the returned status code
+
 ```bash
 http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?statusCode=201
+```
+
+### Return a large JSON
+
+```bash
+http http://debug-debug.apps.brasilia-69e5.open.redhat.com/debug?processLargeJson=true
 ```
 
 ### Delay and Status Code

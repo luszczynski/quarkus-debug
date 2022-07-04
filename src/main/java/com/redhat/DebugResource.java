@@ -1,6 +1,12 @@
 package com.redhat;
 
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.util.stream.Collectors;
+
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -37,22 +43,35 @@ public class DebugResource {
 
     @GET
     @Produces(MediaType.APPLICATION_JSON)
-    public Response helloGet(
-        @QueryParam("delay") Long delay,
-        @QueryParam("statusCode") Integer statusCode
-        ) throws InterruptedException {
-        if(delay != null)
-            Thread.sleep(delay);
+    public Response helloGet (
+        @QueryParam("fixedDelay") Long fixedDelay,
+        @QueryParam("randomDelayBegin") Long randomDelayBegin,
+        @QueryParam("randomDelayEnd") Long randomDelayEnd,
+        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("processLargeJson") Boolean processLargeJson,
+        @QueryParam("hangIndefinitely") Boolean hangIndefinitely
+        ) throws InterruptedException, IOException {
+        if(hangIndefinitely != null && hangIndefinitely)
+            fixedDelay = 99999999l;
+        
+        if(fixedDelay != null)
+            Thread.sleep(fixedDelay);
+        
+        if(randomDelayBegin != null && randomDelayEnd != null) {
+            Long randomDelay = (long) (Math.random() * (randomDelayBegin - randomDelayEnd)) + randomDelayEnd;
+            Thread.sleep(randomDelay);
+        }
 
-        debug.path = info.getPath();
-        debug.remoteAddress = request.remoteAddress().toString();
-        debug.headers = request.headers();
-        debug.pathParams = info.getPathParameters();
-        debug.queryParams = info.getQueryParameters();
-        debug.cookieMap = request.cookieMap();
-        debug.method = request.method();
-        debug.uri = request.uri();
-        debug.count = debugService.increment();
+        Debug debug = debugService.getDebug(request, info);
+
+        if(processLargeJson != null && processLargeJson) {
+            String largeJsonContent;
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("large.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                largeJsonContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                debug.largeJson = largeJsonContent;
+            }
+        }
 
         LOG.info(debug.toString());
 
@@ -72,16 +91,7 @@ public class DebugResource {
         if(delay != null)
             Thread.sleep(delay);
 
-        debug.path = info.getPath();
-        debug.remoteAddress = request.remoteAddress().toString();
-        debug.headers = request.headers();
-        debug.pathParams = info.getPathParameters();
-        debug.queryParams = info.getQueryParameters();
-        debug.cookieMap = request.cookieMap();
-        debug.method = request.method();
-        debug.body = body;
-        debug.uri = request.uri();
-        debug.count = debugService.increment();
+        Debug debug = debugService.getDebug(request, info, body);
 
         LOG.info(debug.toString());
 
@@ -101,16 +111,7 @@ public class DebugResource {
         if(delay != null)
             Thread.sleep(delay);
 
-        debug.path = info.getPath();
-        debug.remoteAddress = request.remoteAddress().toString();
-        debug.headers = request.headers();
-        debug.pathParams = info.getPathParameters();
-        debug.queryParams = info.getQueryParameters();
-        debug.cookieMap = request.cookieMap();
-        debug.method = request.method();
-        debug.body = body;
-        debug.uri = request.uri();
-        debug.count = debugService.increment();
+        Debug debug = debugService.getDebug(request, info, body);
 
         LOG.info(debug.toString());
 
@@ -130,16 +131,7 @@ public class DebugResource {
         if(delay != null)
             Thread.sleep(delay);
 
-        debug.path = info.getPath();
-        debug.remoteAddress = request.remoteAddress().toString();
-        debug.headers = request.headers();
-        debug.pathParams = info.getPathParameters();
-        debug.queryParams = info.getQueryParameters();
-        debug.cookieMap = request.cookieMap();
-        debug.method = request.method();
-        debug.body = body;
-        debug.uri = request.uri();
-        debug.count = debugService.increment();
+        Debug debug = debugService.getDebug(request, info, body);
 
         LOG.info(debug.toString());
 
@@ -158,15 +150,7 @@ public class DebugResource {
         if(delay != null)
             Thread.sleep(delay);
 
-        debug.path = info.getPath();
-        debug.remoteAddress = request.remoteAddress().toString();
-        debug.headers = request.headers();
-        debug.pathParams = info.getPathParameters();
-        debug.queryParams = info.getQueryParameters();
-        debug.cookieMap = request.cookieMap();
-        debug.method = request.method();
-        debug.uri = request.uri();
-        debug.count = debugService.increment();
+        Debug debug = debugService.getDebug(request, info);
 
         LOG.info(debug.toString());
 
