@@ -2,7 +2,7 @@
 
 ## Purpose
 
-This is a simple project to help anyone debug http requests. When using a proxy or any kind of API Management solution, it may help you when you can not call external APIs (https://echo-api.3scale.net:443 or http://postman-echo.com/get for example) and want to check how your payload is reaching the backend.
+This is a simple project to help anyone debug http requests. When using a proxy/gateway or any kind of API Management solution, it may help you when you cannot call external APIs (https://echo-api.3scale.net:443 or http://postman-echo.com/get for example) and want to check how your payload is reaching the backend.
 
 ## How to install
 
