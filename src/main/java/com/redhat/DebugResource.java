@@ -52,7 +52,7 @@ public class DebugResource {
         @QueryParam("hangIndefinitely") Boolean hangIndefinitely
         ) throws InterruptedException, IOException {
         if(hangIndefinitely != null && hangIndefinitely)
-            fixedDelay = 99999999l;
+            fixedDelay = Long.MAX_VALUE;
         
         if(fixedDelay != null)
             Thread.sleep(fixedDelay);
