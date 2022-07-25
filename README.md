@@ -1,4 +1,4 @@
-# Quarkus Debug Project
+# Quarkus HTTP Debug Project
 
 ## Purpose
 
