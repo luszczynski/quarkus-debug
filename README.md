@@ -41,6 +41,14 @@ quarkus dev
 ## Running
 
 ```bash
+# Podman
+podman run --rm -p 8080:8080 luszczynski/quarkus-debug
+
+# Docker
+docker run --rm -p 8080:8080 luszczynski/quarkus-debug
+```
+
+```bash
 # Using httpie
 http http://127.0.0.1:8080/debug
 
