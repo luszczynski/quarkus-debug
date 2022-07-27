@@ -8,7 +8,21 @@ This is a simple project to help anyone debug http requests. When using a proxy/
 
 ### Docker Image
 
-TBD
+To build the image, run:
+
+```bash
+# Just build
+quarkus build -Dquarkus.container-image.build=true
+
+# Build and push
+quarkus build -Dquarkus.container-image.build=true -Dquarkus.container-image.push=true
+```
+
+To run locally:
+
+```bash
+docker run --rm luszczynski/quarkus-debug
+```
 
 ### Build on OpenShift
 
