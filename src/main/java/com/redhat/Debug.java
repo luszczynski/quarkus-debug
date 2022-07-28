@@ -35,10 +35,10 @@ public class Debug {
     
     @Override
     public String toString() {
-        return "Debug [absoluteURI=" + absoluteURI + ", args=" + args + ", body=" + body + ", cookieMap=" + cookieMap
-                + ", cookiesCount=" + cookiesCount + ", count=" + count + ", headers=" + headers + ", headersCount="
-                + headersCount + ", host=" + host + ", largeJson=" + largeJson + ", method=" + method + ", path=" + path
-                + ", pathParams=" + pathParams + ", queryParams=" + queryParams + ", rawMethod=" + rawMethod
-                + ", remoteAddress=" + remoteAddress + ", ssl=" + ssl + ", uri=" + uri + "]";
+        return "Debug: \n\nabsoluteURI=" + absoluteURI + "\nargs=" + args + "\nbody=" + body + "\ncookieMap=" + cookieMap
+                + "\ncookiesCount=" + cookiesCount + "\ncount=" + count + "\nheaders=" + headers + "\nheadersCount="
+                + headersCount + "\nhost=" + host + "\nlargeJson=" + largeJson + "\nmethod=" + method + "\npath=" + path
+                + "\npathParams=" + pathParams + "\nqueryParams=" + queryParams + "\nrawMethod=" + rawMethod
+                + "\nremoteAddress=" + remoteAddress + "\nssl=" + ssl + "\nuri=" + uri;
     }
 }
