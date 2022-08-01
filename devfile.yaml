@@ -51,6 +51,6 @@ commands:
         kind: debug
         isDefault: true
       workingDir: ${PROJECT_SOURCE}
-events:
-  postStart:
-    - init-compile
+# events:
+#   postStart:
+#     - init-compile
