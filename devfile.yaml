@@ -13,7 +13,7 @@ components:
   - name: tools
     container:
       image: registry.access.redhat.com/ubi8/openjdk-11
-      memoryLimit: 1024Mi
+      memoryLimit: 1512Mi
       mountSources: true
       volumeMounts:
         - name: m2
@@ -51,6 +51,6 @@ commands:
         kind: debug
         isDefault: true
       workingDir: ${PROJECT_SOURCE}
-# events:
-#   postStart:
-#     - init-compile
+events:
+  postStart:
+    - init-compile
