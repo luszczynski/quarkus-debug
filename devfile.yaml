@@ -12,7 +12,7 @@ projects:
 components:
   - name: tools
     container:
-      image: registry.access.redhat.com/ubi8/openjdk-11
+      image: quay.io/eclipse/che-quarkus:nightly
       memoryLimit: 1512Mi
       mountSources: true
       volumeMounts:
@@ -33,6 +33,14 @@ commands:
       component: tools
       commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository compile'
       workingDir: ${PROJECT_SOURCE}
+  - id: mvn-package
+    exec:
+      component: tools
+      workingDir: ${PROJECT_SOURCE}
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository package'
+      group:
+        kind: build
+        isDefault: true
   - id: dev-run
     exec:
       component: tools
