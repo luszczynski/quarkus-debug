@@ -1,0 +1,56 @@
+schemaVersion: 2.1.0
+metadata:
+  name: quarkus-debug
+  version: 1.0.0
+projects:
+  - name: quarkus-debug
+    git:
+      remotes:
+        origin: "https://github.com/luszczynski/quarkus-debug.git"
+      checkoutFrom:
+        revision: master
+components:
+  - name: tools
+    container:
+      image: registry.access.redhat.com/ubi8/openjdk-11
+      memoryLimit: 512Mi ## default app nowhere needs this but leaving room for expansion.
+      mountSources: true
+      volumeMounts:
+        - name: m2
+          path: /home/user/.m2
+      endpoints:
+        - name: '8080-http'
+          targetPort: 8080
+      env:
+        - name: DEBUG_PORT
+          value: "5858"
+  - name: m2
+    volume:
+      size: 3Gi
+commands:
+  - id: init-compile
+    exec:
+      component: tools
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository compile'
+      workingDir: ${PROJECT_SOURCE}
+  - id: dev-run
+    exec:
+      component: tools
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager'
+      hotReloadCapable: true
+      group:
+        kind: run
+        isDefault: true
+      workingDir: ${PROJECT_SOURCE}
+  - id: dev-debug
+    exec:
+      component: tools
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Ddebug=${DEBUG_PORT}'
+      hotReloadCapable: true
+      group:
+        kind: debug
+        isDefault: true
+      workingDir: ${PROJECT_SOURCE}
+events:
+  postStart:
+    - init-compile
