@@ -12,7 +12,7 @@ projects:
 components:
   - name: tools
     container:
-      image: quay.io/eclipse/che-quarkus:7.37.2	
+      image: quay.io/eclipse/che-quarkus:7.37.2
       memoryLimit: 1512Mi
       mountSources: true
       volumeMounts:
@@ -37,14 +37,14 @@ commands:
     exec:
       component: tools
       workingDir: ${PROJECT_SOURCE}
-      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository package'
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository clean package'
       group:
         kind: build
         isDefault: true
   - id: dev-run
     exec:
       component: tools
-      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager'
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0'
       hotReloadCapable: true
       group:
         kind: run
@@ -53,7 +53,7 @@ commands:
   - id: dev-debug
     exec:
       component: tools
-      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0 -Djava.util.logging.manager=org.jboss.logmanager.LogManager -Ddebug=${DEBUG_PORT}'
+      commandLine: 'mvn -Dmaven.repo.local=/home/user/.m2/repository quarkus:dev -Dquarkus.http.host=0.0.0.0 -Ddebug=${DEBUG_PORT}'
       hotReloadCapable: true
       group:
         kind: debug
