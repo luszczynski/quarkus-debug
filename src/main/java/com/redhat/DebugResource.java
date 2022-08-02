@@ -73,7 +73,7 @@ public class DebugResource {
             }
         }
 
-        LOG.info(debug.toString());
+        LOG.info(debug);
 
         if(statusCode != null)
             return Response.status(statusCode).entity(debug).build();
@@ -84,16 +84,37 @@ public class DebugResource {
     @POST
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloPost(
-        @QueryParam("delay") Long delay,
+        @QueryParam("fixedDelay") Long fixedDelay,
         @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("randomDelayBegin") Long randomDelayBegin,
+        @QueryParam("randomDelayEnd") Long randomDelayEnd,
+        @QueryParam("processLargeJson") Boolean processLargeJson,
+        @QueryParam("hangIndefinitely") Boolean hangIndefinitely,
         String body
-    ) throws InterruptedException {
-        if(delay != null)
-            Thread.sleep(delay);
+    ) throws InterruptedException, IOException {
+        if(hangIndefinitely != null && hangIndefinitely)
+            fixedDelay = Long.MAX_VALUE;
+        
+        if(fixedDelay != null)
+            Thread.sleep(fixedDelay);
+        
+        if(randomDelayBegin != null && randomDelayEnd != null) {
+            Long randomDelay = (long) (Math.random() * (randomDelayBegin - randomDelayEnd)) + randomDelayEnd;
+            Thread.sleep(randomDelay);
+        }
 
         Debug debug = debugService.getDebug(request, info, body);
 
-        LOG.info(debug.toString());
+        if(processLargeJson != null && processLargeJson) {
+            String largeJsonContent;
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("large.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                largeJsonContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                debug.largeJson = largeJsonContent;
+            }
+        }
+
+        LOG.info(debug);
 
         if(statusCode != null)
             return Response.status(statusCode).entity(debug).build();
@@ -104,16 +125,37 @@ public class DebugResource {
     @PUT
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloPut(
-        @QueryParam("delay") Long delay,
+        @QueryParam("fixedDelay") Long fixedDelay,
         @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("randomDelayBegin") Long randomDelayBegin,
+        @QueryParam("randomDelayEnd") Long randomDelayEnd,
+        @QueryParam("processLargeJson") Boolean processLargeJson,
+        @QueryParam("hangIndefinitely") Boolean hangIndefinitely,
         String body
-    ) throws InterruptedException {
-        if(delay != null)
-            Thread.sleep(delay);
+    ) throws InterruptedException, IOException {
+        if(hangIndefinitely != null && hangIndefinitely)
+            fixedDelay = Long.MAX_VALUE;
+        
+        if(fixedDelay != null)
+            Thread.sleep(fixedDelay);
+        
+        if(randomDelayBegin != null && randomDelayEnd != null) {
+            Long randomDelay = (long) (Math.random() * (randomDelayBegin - randomDelayEnd)) + randomDelayEnd;
+            Thread.sleep(randomDelay);
+        }
 
         Debug debug = debugService.getDebug(request, info, body);
 
-        LOG.info(debug.toString());
+        if(processLargeJson != null && processLargeJson) {
+            String largeJsonContent;
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("large.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                largeJsonContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                debug.largeJson = largeJsonContent;
+            }
+        }
+
+        LOG.info(debug);
 
         if(statusCode != null)
             return Response.status(statusCode).entity(debug).build();
@@ -124,16 +166,37 @@ public class DebugResource {
     @PATCH
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloPatch(
-        @QueryParam("delay") Long delay,
+        @QueryParam("fixedDelay") Long fixedDelay,
         @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("randomDelayBegin") Long randomDelayBegin,
+        @QueryParam("randomDelayEnd") Long randomDelayEnd,
+        @QueryParam("processLargeJson") Boolean processLargeJson,
+        @QueryParam("hangIndefinitely") Boolean hangIndefinitely,
         String body
-    ) throws InterruptedException {
-        if(delay != null)
-            Thread.sleep(delay);
+    ) throws InterruptedException, IOException {
+        if(hangIndefinitely != null && hangIndefinitely)
+            fixedDelay = Long.MAX_VALUE;
+        
+        if(fixedDelay != null)
+            Thread.sleep(fixedDelay);
+        
+        if(randomDelayBegin != null && randomDelayEnd != null) {
+            Long randomDelay = (long) (Math.random() * (randomDelayBegin - randomDelayEnd)) + randomDelayEnd;
+            Thread.sleep(randomDelay);
+        }
 
         Debug debug = debugService.getDebug(request, info, body);
 
-        LOG.info(debug.toString());
+        if(processLargeJson != null && processLargeJson) {
+            String largeJsonContent;
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("large.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                largeJsonContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                debug.largeJson = largeJsonContent;
+            }
+        }
+
+        LOG.info(debug);
 
         if(statusCode != null)
             return Response.status(statusCode).entity(debug).build();
@@ -144,15 +207,36 @@ public class DebugResource {
     @DELETE
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloDelete(
-        @QueryParam("delay") Long delay,
-        @QueryParam("statusCode") Integer statusCode
-        ) throws InterruptedException {
-        if(delay != null)
-            Thread.sleep(delay);
+        @QueryParam("fixedDelay") Long fixedDelay,
+        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("randomDelayBegin") Long randomDelayBegin,
+        @QueryParam("randomDelayEnd") Long randomDelayEnd,
+        @QueryParam("processLargeJson") Boolean processLargeJson,
+        @QueryParam("hangIndefinitely") Boolean hangIndefinitely
+        ) throws InterruptedException, IOException {
+        if(hangIndefinitely != null && hangIndefinitely)
+            fixedDelay = Long.MAX_VALUE;
+        
+        if(fixedDelay != null)
+            Thread.sleep(fixedDelay);
+        
+        if(randomDelayBegin != null && randomDelayEnd != null) {
+            Long randomDelay = (long) (Math.random() * (randomDelayBegin - randomDelayEnd)) + randomDelayEnd;
+            Thread.sleep(randomDelay);
+        }
 
         Debug debug = debugService.getDebug(request, info);
 
-        LOG.info(debug.toString());
+        if(processLargeJson != null && processLargeJson) {
+            String largeJsonContent;
+            try (InputStream inputStream = getClass().getClassLoader().getResourceAsStream("large.json");
+                BufferedReader reader = new BufferedReader(new InputStreamReader(inputStream))) {
+                largeJsonContent = reader.lines().collect(Collectors.joining(System.lineSeparator()));
+                debug.largeJson = largeJsonContent;
+            }
+        }
+
+        LOG.info(debug);
 
         if(statusCode != null)
             return Response.status(statusCode).entity(debug).build();
