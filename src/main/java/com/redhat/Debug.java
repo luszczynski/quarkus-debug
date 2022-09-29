@@ -37,7 +37,7 @@ public class Debug {
     public String toString() {
         return "Debug: \n\nabsoluteURI=" + absoluteURI + "\nargs=" + args + "\nbody=" + body + "\ncookieMap=" + cookieMap
                 + "\ncookiesCount=" + cookiesCount + "\ncount=" + count + "\nheaders=" + headers + "\nheadersCount="
-                + headersCount + "\nhost=" + host + "\nlargeJson=" + largeJson + "\nmethod=" + method + "\npath=" + path
+                + headersCount + "\nhost=" + host + "\nmethod=" + method + "\npath=" + path
                 + "\npathParams=" + pathParams + "\nqueryParams=" + queryParams + "\nrawMethod=" + rawMethod
                 + "\nremoteAddress=" + remoteAddress + "\nssl=" + ssl + "\nuri=" + uri;
     }
