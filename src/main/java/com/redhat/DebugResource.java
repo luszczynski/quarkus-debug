@@ -5,7 +5,10 @@ import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Random;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import javax.inject.Inject;
 import javax.ws.rs.DELETE;
@@ -47,7 +50,7 @@ public class DebugResource {
         @QueryParam("fixedDelay") Long fixedDelay,
         @QueryParam("randomDelayBegin") Long randomDelayBegin,
         @QueryParam("randomDelayEnd") Long randomDelayEnd,
-        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("statusCode") String statusCode,
         @QueryParam("processLargeJson") Boolean processLargeJson,
         @QueryParam("hangIndefinitely") Boolean hangIndefinitely
         ) throws InterruptedException, IOException {
@@ -75,8 +78,27 @@ public class DebugResource {
 
         LOG.info(debug);
 
-        if(statusCode != null)
-            return Response.status(statusCode).entity(debug).build();
+        if(statusCode != null) {
+
+            try {
+                Integer chosenStatus;
+
+                if(statusCode.contains(",")) {
+                    List<Integer> arrayStatus = Stream.of(statusCode.split(","))
+                    .map (elem -> Integer.parseInt(elem))
+                    .collect(Collectors.toList());
+
+                    chosenStatus = arrayStatus.get(new Random().nextInt(arrayStatus.size()));
+                }
+                else {
+                    chosenStatus = Integer.parseInt(statusCode);
+                }
+                
+                return Response.status(chosenStatus).entity(debug).build();
+            } catch (NumberFormatException e) {
+                return Response.status(400).entity("Bad status code").build();
+            }            
+        }
         else 
             return Response.status(200).entity(debug).build();
     }
@@ -85,7 +107,7 @@ public class DebugResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloPost(
         @QueryParam("fixedDelay") Long fixedDelay,
-        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("statusCode") String statusCode,
         @QueryParam("randomDelayBegin") Long randomDelayBegin,
         @QueryParam("randomDelayEnd") Long randomDelayEnd,
         @QueryParam("processLargeJson") Boolean processLargeJson,
@@ -116,8 +138,27 @@ public class DebugResource {
 
         LOG.info(debug);
 
-        if(statusCode != null)
-            return Response.status(statusCode).entity(debug).build();
+        if(statusCode != null) {
+
+            try {
+                Integer chosenStatus;
+
+                if(statusCode.contains(",")) {
+                    List<Integer> arrayStatus = Stream.of(statusCode.split(","))
+                    .map (elem -> Integer.parseInt(elem))
+                    .collect(Collectors.toList());
+
+                    chosenStatus = arrayStatus.get(new Random().nextInt(arrayStatus.size()));
+                }
+                else {
+                    chosenStatus = Integer.parseInt(statusCode);
+                }
+                
+                return Response.status(chosenStatus).entity(debug).build();
+            } catch (NumberFormatException e) {
+                return Response.status(400).entity("Bad status code").build();
+            }            
+        }
         else 
             return Response.status(200).entity(debug).build();
     }
@@ -126,7 +167,7 @@ public class DebugResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloPut(
         @QueryParam("fixedDelay") Long fixedDelay,
-        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("statusCode") String statusCode,
         @QueryParam("randomDelayBegin") Long randomDelayBegin,
         @QueryParam("randomDelayEnd") Long randomDelayEnd,
         @QueryParam("processLargeJson") Boolean processLargeJson,
@@ -157,8 +198,27 @@ public class DebugResource {
 
         LOG.info(debug);
 
-        if(statusCode != null)
-            return Response.status(statusCode).entity(debug).build();
+        if(statusCode != null) {
+
+            try {
+                Integer chosenStatus;
+
+                if(statusCode.contains(",")) {
+                    List<Integer> arrayStatus = Stream.of(statusCode.split(","))
+                    .map (elem -> Integer.parseInt(elem))
+                    .collect(Collectors.toList());
+
+                    chosenStatus = arrayStatus.get(new Random().nextInt(arrayStatus.size()));
+                }
+                else {
+                    chosenStatus = Integer.parseInt(statusCode);
+                }
+                
+                return Response.status(chosenStatus).entity(debug).build();
+            } catch (NumberFormatException e) {
+                return Response.status(400).entity("Bad status code").build();
+            }            
+        }
         else 
             return Response.status(200).entity(debug).build();
     }
@@ -167,7 +227,7 @@ public class DebugResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloPatch(
         @QueryParam("fixedDelay") Long fixedDelay,
-        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("statusCode") String statusCode,
         @QueryParam("randomDelayBegin") Long randomDelayBegin,
         @QueryParam("randomDelayEnd") Long randomDelayEnd,
         @QueryParam("processLargeJson") Boolean processLargeJson,
@@ -198,8 +258,27 @@ public class DebugResource {
 
         LOG.info(debug);
 
-        if(statusCode != null)
-            return Response.status(statusCode).entity(debug).build();
+        if(statusCode != null) {
+
+            try {
+                Integer chosenStatus;
+
+                if(statusCode.contains(",")) {
+                    List<Integer> arrayStatus = Stream.of(statusCode.split(","))
+                    .map (elem -> Integer.parseInt(elem))
+                    .collect(Collectors.toList());
+
+                    chosenStatus = arrayStatus.get(new Random().nextInt(arrayStatus.size()));
+                }
+                else {
+                    chosenStatus = Integer.parseInt(statusCode);
+                }
+                
+                return Response.status(chosenStatus).entity(debug).build();
+            } catch (NumberFormatException e) {
+                return Response.status(400).entity("Bad status code").build();
+            }            
+        }
         else 
             return Response.status(200).entity(debug).build();
     }
@@ -208,7 +287,7 @@ public class DebugResource {
     @Produces(MediaType.APPLICATION_JSON)
     public Response helloDelete(
         @QueryParam("fixedDelay") Long fixedDelay,
-        @QueryParam("statusCode") Integer statusCode,
+        @QueryParam("statusCode") String statusCode,
         @QueryParam("randomDelayBegin") Long randomDelayBegin,
         @QueryParam("randomDelayEnd") Long randomDelayEnd,
         @QueryParam("processLargeJson") Boolean processLargeJson,
@@ -238,8 +317,27 @@ public class DebugResource {
 
         LOG.info(debug);
 
-        if(statusCode != null)
-            return Response.status(statusCode).entity(debug).build();
+        if(statusCode != null) {
+
+            try {
+                Integer chosenStatus;
+
+                if(statusCode.contains(",")) {
+                    List<Integer> arrayStatus = Stream.of(statusCode.split(","))
+                    .map (elem -> Integer.parseInt(elem))
+                    .collect(Collectors.toList());
+
+                    chosenStatus = arrayStatus.get(new Random().nextInt(arrayStatus.size()));
+                }
+                else {
+                    chosenStatus = Integer.parseInt(statusCode);
+                }
+                
+                return Response.status(chosenStatus).entity(debug).build();
+            } catch (NumberFormatException e) {
+                return Response.status(400).entity("Bad status code").build();
+            }            
+        }
         else 
             return Response.status(200).entity(debug).build();
     }

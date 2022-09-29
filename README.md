@@ -114,6 +114,14 @@ Choose the returned status code
 http http://127.0.0.1:8080/debug?statusCode=201
 ```
 
+### Returned Multiple Status Code
+
+It will randomly return one of the status code
+
+```bash
+http http://127.0.0.1:8080/debug?statusCode=201,500
+```
+
 ### Return a large JSON
 
 ```bash
